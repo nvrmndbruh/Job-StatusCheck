@@ -1,8 +1,7 @@
 {
   "profiles": {
     "StatusCheck": {
-      "commandName": "Project",
-      "commandLineArgs": "https://ya.ru"
+      "commandName": "Project"
     }
   }
 }

@@ -1,15 +1,12 @@
 ﻿using StatusCheck.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using StatusCheck.Models;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StatusCheck.Services
 {
     public class RequestRegistry
     {
+        // список всех найденных проверок
         private readonly Dictionary<string, (Type RequestType, RequestAttribute Metadata)> _registeredRequests = new();
 
         public RequestRegistry()
@@ -21,7 +18,7 @@ namespace StatusCheck.Services
         {
             var assembly = Assembly.GetExecutingAssembly();
             var checkTypes = assembly.GetTypes()
-                .Where(t => typeof(IStatusCheck).IsAssignableFrom(t)
+                .Where(t => typeof(IStatusCheck).IsAssignableFrom(t)    // ищем все классы, которые реализуют нужный интерфейс
                            && !t.IsInterface
                            && !t.IsAbstract);
 
@@ -31,7 +28,7 @@ namespace StatusCheck.Services
                 if (attribute != null)
                 {
                     _registeredRequests[attribute.Name.ToLower()] = (type, attribute);
-                    Console.WriteLine($"найдена проверка: {attribute.Name} ({type.Name})");
+                    Console.WriteLine($"найдена проверка: {attribute.Name} ({type.Name}) | {attribute.ArgumentDescription}");
                 }
             }
         }
