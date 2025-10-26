@@ -1,20 +1,18 @@
 ﻿using StatusCheck.Interfaces;
 using StatusCheck.Models;
-using StatusCheck.Services;
-using System.Runtime.CompilerServices;
 
 namespace StatusCheck.Requests
 {
-    [RequestAttribute(
+    [Request(
         name:"web",
         argument:"url")]
     internal class WebRequest : IStatusCheck
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _httpClient = new();
 
         public string Name => "Web Request";
 
-        public Task<RequestResults> CheckAsync(CancellationToken cancellationToken = default)
+        public Task<RequestResults> CheckAsync(string target, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using StatusCheck.Services;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace StatusCheck
 {
@@ -7,7 +6,11 @@ namespace StatusCheck
     {
         static async Task Main(string[] args)
         {
-            var registry = new RequestRegistry();
+            // загрузка конфигурации
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appconfig.json", true, false)
+                .Build();
         }
     }
 }
