@@ -1,7 +1,6 @@
 ﻿using StatusCheck.Interfaces;
 using StatusCheck.Models;
 using System.Diagnostics;
-using System.Threading;
 
 namespace StatusCheck.Requests
 {
@@ -20,7 +19,7 @@ namespace StatusCheck.Requests
             var result = new RequestResults
             {
                 Name = this.Name,
-                Address = target
+                Target = target
             };
             try
             {

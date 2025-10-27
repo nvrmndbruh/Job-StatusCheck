@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using StatusCheck.Models;
-using StatusCheck.Requests;
 using StatusCheck.Services;
-using System.Text.Json;
 
 namespace StatusCheck
 {
@@ -17,7 +15,7 @@ namespace StatusCheck
 
             // переводим в модели
             var appConfig = new AppConfigurationModel();
-            config.Bind(appConfig); // Используем Bind вместо Get
+            config.Bind(appConfig);
 
             var registry = new RequestRegistry();
             
