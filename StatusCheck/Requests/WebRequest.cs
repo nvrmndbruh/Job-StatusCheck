@@ -1,7 +1,6 @@
 ﻿using StatusCheck.Interfaces;
 using StatusCheck.Models;
 using System.Diagnostics;
-using System.Threading;
 
 namespace StatusCheck.Requests
 {
@@ -37,8 +36,8 @@ namespace StatusCheck.Requests
                 result.IsSuccessful = response.IsSuccessStatusCode;
                 result.ResponseTime = stopwatch.ElapsedMilliseconds;
                 result.Message = response.IsSuccessStatusCode
-                    ? $"Website is accessible. Status: {(int)response.StatusCode} {response.StatusCode}"
-                    : $"Website returned error. Status: {(int)response.StatusCode} {response.StatusCode}";
+                    ? $"Website is accessible. Status: {(int)response.StatusCode}"
+                    : $"Website returned error. Status: {(int)response.StatusCode}";
             }
             catch (HttpRequestException ex)
             {

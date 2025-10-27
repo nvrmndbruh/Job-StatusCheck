@@ -23,31 +23,35 @@ namespace StatusCheck
 
             List<RequestResults> results = [];
 
+            // стартовое сообщение
             Console.WriteLine("--[ STATUS CHECK by Knyazev Anton ]--");
-            Console.WriteLine("\nСписок доступных проверок:");
+            Console.WriteLine("\nAvailable checks:");
             foreach (var check in registry.RegisteredRequests)
             {
                 Console.WriteLine($"    {check.Key} ({check.Value.RequestType.Name}), аргумент: {check.Value.Metadata.ArgumentDescription}");
             }
 
-            if (args.Length > 2)
+            if (args.Length > 2)    // неверное число аргументов
             {
-                Console.WriteLine("\nОШИБКА: Неверное число аргументов");
+                // 
+                Console.WriteLine("\nERROR: Incorrect number of arguments");
                 return;
             }
 
-            if (args.Length == 0)
+            if (args.Length == 0)   // стандартный сценарий
             {
-                Console.WriteLine("\nЗапуск проверок по-умолчанию\n");
+                Console.WriteLine("\nRunning default checks...\n");
                 foreach (var check in appConfig.RequestsSettings)
                 {
                     if (registry.IsRegistered(check.Key))
                     {
                         var request = registry.CreateStatusCheck(check.Key);
 
-                        Console.Write($"{request.Name} ({check.Value.DefaultTarget}) | ");
+                        Console.WriteLine($"{request.Name} ({check.Value.DefaultTarget})");
+
                         var result = await request.CheckAsync(check.Value.DefaultTarget);
-                        Console.WriteLine($"{(result.IsSuccessful ? "OK" : "FAIL")}");
+
+                        Console.WriteLine($"--> {(result.IsSuccessful ? "OK" : "FAIL")}, MESSAGE: {result.Message}");
                         results.Add(result);
                     }
                 }
@@ -57,31 +61,35 @@ namespace StatusCheck
                 var requestName = args[0];
                 if (registry.IsRegistered(requestName))
                 {
-                    Console.WriteLine($"\nЗапуск проверки {requestName}\n");
+                    Console.WriteLine($"\nRunning \"{requestName}\"...\n");
 
+                    // если не дана ссылка - берем из конфига
                     var target = args.Length == 2 ? args[1] : appConfig.RequestsSettings[requestName].DefaultTarget;
-                    Console.WriteLine($"{requestName} ({target})");
                     var request = registry.CreateStatusCheck(requestName);
 
+                    Console.WriteLine($"{request.Name} ({target})");
+
                     var result = await request.CheckAsync(target);
+
                     Console.WriteLine($"--> {(result.IsSuccessful ? "OK" : "FAIL")}, MESSAGE: {result.Message}");
                     results.Add(result);
                 }
                 else
                 {
-                    Console.WriteLine($"\nОШИБКА: Проверка с названием \"{requestName}\" не найдена");
+                    Console.WriteLine($"\nERROR: \"{requestName}\" check not found");
                     return;
                 }
             }
 
             try
             {
+                // записываем результат
                 await logger.WriteResultsAsync(results);
-                Console.WriteLine($"\n\nРезультаты проверки сохранены в файл {Path.GetFullPath(appConfig.OutputFilePath)}");
+                Console.WriteLine($"\n\nAll results saved to {Path.GetFullPath(appConfig.OutputFilePath)}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"\n\nНе удалось сохранить результаты проверок:\n{ex.Message}");
+                Console.WriteLine($"\n\nERROR: can't save results\n{ex.Message}");
             }
         }
     }
