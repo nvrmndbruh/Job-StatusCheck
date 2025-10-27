@@ -1,0 +1,12 @@
+{
+  "RequestsSettings": {
+    "web": {
+      "DefaultTarget": "https://ya.ru",
+      "Timeout": 5000
+    },
+    "sql": {
+      "DefaultTarget": "Server=localhost;Database=TestDB;User Id=sa;Password=YourPassword;TrustServerCertificate=True;",
+      "Timeout": 10
+    }
+  }
+}

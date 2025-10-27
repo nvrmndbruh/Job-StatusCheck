@@ -9,6 +9,6 @@ namespace StatusCheck.Models
 {
     public class AppConfigurationModel
     {
-        public List<RequestConfigurationModel> RequestSettings { get; set; } = new();
+        public Dictionary<string, RequestConfigurationModel> RequestsSettings { get; set; } = new();
     }
 }

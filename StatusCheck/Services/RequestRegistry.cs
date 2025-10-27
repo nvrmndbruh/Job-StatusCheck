@@ -32,5 +32,19 @@ namespace StatusCheck.Services
                 }
             }
         }
+
+        public IStatusCheck? CreateStatusCheck(string commandName)
+        {
+            if (_registeredRequests.TryGetValue(commandName.ToLower(), out var registration))
+            {
+                return Activator.CreateInstance(registration.RequestType) as IStatusCheck;
+            }
+            return null;
+        }
+
+        public bool IsRegistered(string commandName)
+        {
+            return _registeredRequests.ContainsKey(commandName.ToLower());
+        }
     }
 }
