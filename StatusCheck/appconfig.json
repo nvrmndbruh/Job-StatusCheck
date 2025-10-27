@@ -8,5 +8,6 @@
       "DefaultTarget": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False",
       "Timeout": 10
     }
-  }
+  },
+  "OutputFilePath": "check_results.json"
 }
