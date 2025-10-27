@@ -31,7 +31,8 @@ namespace StatusCheck.Services
                     name = result.Name,
                     target = result.Target,
                     isSuccesful = result.IsSuccessful,
-                    responseTime = result.ResponseTime
+                    responseTime = result.ResponseTime,
+                    message = result.Message
                 }, _jsonOptions);
 
                 await streamWriter.WriteLineAsync(json);

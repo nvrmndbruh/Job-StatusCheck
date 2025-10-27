@@ -1,7 +1,8 @@
 {
   "profiles": {
     "StatusCheck": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "web"
     }
   }
 }

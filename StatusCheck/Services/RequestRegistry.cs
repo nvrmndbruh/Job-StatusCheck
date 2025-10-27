@@ -9,6 +9,8 @@ namespace StatusCheck.Services
         // список всех найденных проверок
         private readonly Dictionary<string, (Type RequestType, RequestAttribute Metadata)> _registeredRequests = new();
 
+        public Dictionary<string, (Type RequestType, RequestAttribute Metadata)> RegisteredRequests { get =>  _registeredRequests; }
+
         public RequestRegistry()
         {
             DiscoverHealthChecks();
@@ -28,7 +30,6 @@ namespace StatusCheck.Services
                 if (attribute != null)
                 {
                     _registeredRequests[attribute.Name.ToLower()] = (type, attribute);
-                    Console.WriteLine($"найдена проверка: {attribute.Name} ({type.Name}) | {attribute.ArgumentDescription}");
                 }
             }
         }
