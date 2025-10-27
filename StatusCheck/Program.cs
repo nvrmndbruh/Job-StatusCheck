@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using StatusCheck.Models;
 using StatusCheck.Services;
-using System;
 
 namespace StatusCheck
 {
@@ -16,7 +15,16 @@ namespace StatusCheck
 
             // переводим в модели
             var appConfig = new AppConfigurationModel();
-            config.Bind(appConfig);
+            try
+            {
+                config.Bind(appConfig);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\nERROR: Failed to load configuration file");
+                return;
+            }
+            
 
             var registry = new RequestRegistry();
             var logger = new Logger(appConfig.OutputFilePath);
@@ -33,7 +41,6 @@ namespace StatusCheck
 
             if (args.Length > 2)    // неверное число аргументов
             {
-                // 
                 Console.WriteLine("\nERROR: Incorrect number of arguments");
                 return;
             }

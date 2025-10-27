@@ -1,12 +1,10 @@
 {
   "RequestsSettings": {
     "web": {
-      "DefaultTarget": "https://ya.ru",
-      "Timeout": 5000
+      "DefaultTarget": "https://ya.ru"
     },
     "mssql": {
-      "DefaultTarget": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False",
-      "Timeout": 10
+      "DefaultTarget": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
     }
   },
   "OutputFilePath": "check_results.json"
