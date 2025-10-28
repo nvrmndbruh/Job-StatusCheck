@@ -2,7 +2,7 @@
   "profiles": {
     "StatusCheck": {
       "commandName": "Project",
-      "commandLineArgs": "web test.ru"
+      "commandLineArgs": "web soundcloud.com"
     }
   }
 }

@@ -30,18 +30,21 @@ namespace StatusCheck.Requests
 
                 result.IsSuccessful = true;
                 result.ResponseTime = stopwatch.ElapsedMilliseconds;
+                result.Message = $"MS SQL Server is accessible";
             }
             catch (SqlException ex)
             {
                 stopwatch.Stop();
                 result.IsSuccessful = false;
                 result.ResponseTime = stopwatch.ElapsedMilliseconds;
+                result.Message = $"MS SQL Server error: {ex.Message}";
             }
             catch (Exception ex)
             {
                 stopwatch.Stop();
                 result.IsSuccessful = false;
                 result.ResponseTime = stopwatch.ElapsedMilliseconds;
+                result.Message = $"Error: {ex.Message}";
             }
 
             return result;
